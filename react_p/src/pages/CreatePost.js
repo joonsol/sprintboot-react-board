@@ -18,12 +18,8 @@ const CreatePost = () => {
 
   }
   const onClickSubmit = () => {
-    const testData = {
-      title: "제목 직접 테스트",
-      content: "내용 직접 테스트"
-    };
 
-    axios.post(`${process.env.REACT_APP_API_URL}/posts`, testData)
+
 
     // console.log("전송할 formData 확인", formData);  // ✅ 여기 꼭 찍히는지 확인
     axios.post(`${process.env.REACT_APP_API_URL}/posts`, formData)

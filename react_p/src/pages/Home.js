@@ -1,38 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../css/Home.css'
+import axios from 'axios'
 const Home = () => {
 
-  const allPosts = Array.from({ length: 25 }, (_, index) => ({
-    id: index + 1,
-    title: `${index + 1}번째 게시글`,
-    content: `${index + 1}번째 게시글 내용입니다.`,
-  }))
-
-  const postsPerpage = 10
+  const [posts, setPosts] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const postsPerpage = 10
 
 
+  const getPostList = () => {
+    axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
+      params: {
+        page: currentPage - 1,
+        size: postsPerpage
+      }
+    })
+      .then(response => {
+        console.log('게시글 가져오기 성공.', response.data.content);
+        setPosts(response.data.content)
+        setTotalPages(response.data.totalPages)
 
-  const indexOfLastPost = currentPage * postsPerpage
-  const indexOfFirstPost = indexOfLastPost - postsPerpage
+      })
+      .catch(error => {
+        console.error('게시글 가져오기 실패', error)
+      })
+  }
 
-  const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost)
+  useEffect(() => {
+    getPostList()
+  }, [currentPage])
 
 
-  const totalPages = Math.ceil(allPosts.length / postsPerpage)
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1)
-
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
+
+
+
+
   return (
     <div className='home-container'>
       <h1 className="home-title">게시글 목록</h1>
       <div className="posts-list">
-        {currentPosts.map(post => (
+        {posts.map(post => (
           <div key={post.id} className='post-card'>
             <h2 className='post-title'>
               <Link to={`/post/${post.id}`}>{post.title}</Link>
@@ -45,11 +60,13 @@ const Home = () => {
         ))}
       </div>
       <div className="pagination">
-        {pageNumbers.map((number)=>(
-          <button 
+        {pageNumbers.map((number) => (
+          <button
 
-          className={`page-btn ${number===currentPage? 'active':''}`}
-          key={number}>
+            className={`page-btn ${number === currentPage ? 'active' : ''}`}
+            key={number}
+            onClick={()=>handlePageChange(number)}
+            >
             {number}
           </button>
         ))}
