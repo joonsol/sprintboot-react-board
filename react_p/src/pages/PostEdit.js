@@ -26,9 +26,9 @@ const handleSubmit=(e)=>{
 }
   return (
     <div className='post-edit-container'>
-      <h1 class="post-edit-title">게시글 수정</h1>
+      <h1 className="post-edit-title">게시글 수정</h1>
       <form onSubmit={handleSubmit} className='post-edit-form'>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="title">제목</label>
           <input 
           id={title}
@@ -38,7 +38,7 @@ const handleSubmit=(e)=>{
 
           type="text"/>
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="content">내용</label>
           <textarea 
           value={content}
@@ -47,7 +47,7 @@ const handleSubmit=(e)=>{
           id="content" />
 
         </div>
-        <div class="button-group">
+        <div className="button-group">
           <button type="submit" className='submit-button'>수정완료</button>
           <Link to="/"  className='cancel-button'>취소</Link>
         </div>

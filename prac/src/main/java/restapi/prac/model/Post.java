@@ -1,31 +1,48 @@
 package restapi.prac.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
+
 
     @Column(nullable = false)
-    private String title;
+    private  String title;
 
-    @Column(nullable = false)
-    private String content;
+    @Column(nullable = false, length  =5000)
+    private  String content;
 
-    // 생성자는 lombok이 생성해주므로 아래는 제거
-    // public Post(){}
-    // public Post(String title, String content){
-    //     this.title=title;
-    //     this.content=content;
-    // }
 
-    // getter/setter도 Lombok이 생성하므로 제거
+    public  Post(){}
+
+    // 생성자
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+    public  Long getId(){
+        return  id;
+    }
+
+    public void  setId(Long id){
+        this.id=id;
+    }
+
+    public  String getTitle(){
+        return  title;
+    }
+    public  void  setTitle(String title){
+        this.title = title;
+    }
+
+    public String getContent(){
+        return  content;
+    }
+    public  void setContent(String content){
+        this.content = content;
+    }
 }

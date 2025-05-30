@@ -30,21 +30,21 @@ const Home = () => {
 
   return (
     <div className='home-container'>
-      <h1 class="home-title">게시글 목록</h1>
-      <div class="posts-list">
+      <h1 className="home-title">게시글 목록</h1>
+      <div className="posts-list">
         {currentPosts.map(post => (
           <div key={post.id} className='post-card'>
             <h2 className='post-title'>
               <Link to={`/post/${post.id}`}>{post.title}</Link>
             </h2>
-            <p class="post-content">
+            <p className="post-content">
               {post.content}
             </p>
 
           </div>
         ))}
       </div>
-      <div class="pagination">
+      <div className="pagination">
         {pageNumbers.map((number)=>(
           <button 
 

@@ -8,7 +8,7 @@ import PostEdit from './pages/PostEdit';
 function App() {
   return (
     <Router>
-      <div class="App">
+      <div className="App">
         <Routes>
           <Route  path='/'  element={<Home/>}/>
           <Route  path='/create'  element={<CreatePost/>}/>
